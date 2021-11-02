@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
-  final String id = 'welcome_screen';
+  static String id = 'welcome_screen';
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -20,15 +20,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-              children: <Widget>[
-                SizedBox(
-                  child: Image.asset('images/logo.png'),
-                  height: 60.0,
+              children: const <Widget>[
+                Icon(
+                  Icons.message,
+                  color: Colors.black,
+                  size: 40,
                 ),
-                const Text(
+                Text(
                   'Flutter Chat App!',
                   style: TextStyle(
-                    fontSize: 45.0,
+                    color: Colors.black,
+                    fontSize: 30.0,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -50,6 +52,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   minWidth: 200,
                   height: 42.0,
                   child: const Text('ログイン'),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Material(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(30.0),
+                elevation: 5.0,
+                child: MaterialButton(
+                  onPressed: () {
+                    //Go to registration screen.
+                  },
+                  minWidth: 200.0,
+                  height: 42.0,
+                  child: const Text(
+                    '登録',
+                  ),
                 ),
               ),
             ),

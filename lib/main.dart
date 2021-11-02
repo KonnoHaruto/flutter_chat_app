@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/screen/registration_screen.dart';
 import 'package:flutter_chat_app/screen/welcome_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -18,23 +20,13 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(color: Colors.black54)
         ),
       ),
-      initialRoute: 'longin_screen',
+      initialRoute: WelcomeScreen.id,
       routes: {
-        const WelcomeScreen().id: (context) => const WelcomeScreen(),
-        // 'login_screen': (context) => LoginScreen(),
+        WelcomeScreen.id: (context) => const WelcomeScreen(),
+        RegistrationScreen.id: (context) => RegistrationScreen(),
         // 'registration_screen': (context) => RegistrationScreen(),
         // 'chat_screen': (context) => ChatScreen(),
       },
-      home: const HomePage(),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
   }
 }
