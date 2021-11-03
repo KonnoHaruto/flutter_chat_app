@@ -10,6 +10,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,19 +26,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               tag: 'logo',
               child: SizedBox(
                 height: 200.0,
-                child: Icon(Icons.message, color: Colors.black,),
+                child: Icon(
+                  Icons.message,
+                  color: Colors.black,
+                ),
               ),
             ),
             const SizedBox(
               height: 48.0,
             ),
             TextField(
+              textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.black),
               onChanged: (value) {
                 //Do something with the user input.
+                email = value;
               },
               decoration: const InputDecoration(
-                hintText: 'メールアドレスを入力', 
+                hintText: 'メールアドレスを入力',
                 hintStyle: TextStyle(color: Colors.black),
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -56,9 +64,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
+              textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.black),
               onChanged: (value) {
                 //Do something with the user input.
+                password = value;
               },
               decoration: const InputDecoration(
                 hintText: 'パスワードを入力',
@@ -90,6 +100,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Implement registration functionality.
+                    // ignore: avoid_print
+                    print('email: $email password: $password');
                   },
                   minWidth: 200.0,
                   height: 42.0,

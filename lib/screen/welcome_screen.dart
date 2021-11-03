@@ -10,13 +10,6 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  late AnimationController controller;
-
-  @override
-  initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +55,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   },
                   minWidth: 200,
                   height: 42.0,
-                  child: const Text('ログイン'),
+                  child: const Text(
+                    'ログイン',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
@@ -74,13 +70,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () {
-                    //Go to registration screen.
+                    //Go to registration screen.]
                     Navigator.pushNamed(context, RegistrationScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
                   child: const Text(
                     '登録',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
