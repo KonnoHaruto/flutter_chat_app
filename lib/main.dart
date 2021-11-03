@@ -15,17 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'flutter_chat_app',
-      theme: ThemeData.dark().copyWith(
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(color: Colors.black54)
-        ),
-      ),
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        // 'registration_screen': (context) => RegistrationScreen(),
-        // 'chat_screen': (context) => ChatScreen(),
+        RegistrationScreen.id: (context) => const RegistrationScreen(),
       },
     );
   }
