@@ -34,7 +34,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             TextField(
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black),
               onChanged: (value) {
                 //Do something with the user input.
                 email = value;
