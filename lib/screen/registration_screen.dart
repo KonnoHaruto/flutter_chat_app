@@ -22,14 +22,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Hero(
-              tag: 'logo',
-              child: SizedBox(
-                height: 200.0,
-                child: Icon(
-                  Icons.message,
-                  color: Colors.black,
-                ),
+            const SizedBox(
+              height: 200.0,
+              child: Icon(
+                Icons.message,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
