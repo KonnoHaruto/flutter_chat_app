@@ -101,7 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   onPressed: () {
                     //Implement registration functionality.
                     // ignore: avoid_print
-                    print('email: $email password: $password');
+                    print('email: [$email] password: [$password]');
                   },
                   minWidth: 200.0,
                   height: 42.0,
