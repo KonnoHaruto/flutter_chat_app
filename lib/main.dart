@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/screen/registration_screen.dart';
-import 'package:flutter_chat_app/screen/welcome_screen.dart';
+
+import 'view/registration_screen.dart';
+import 'view/welcome_screen.dart';
 
 
 void main() {
