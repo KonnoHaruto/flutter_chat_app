@@ -61,6 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             TextField(
               textAlign: TextAlign.center,
+              obscureText: true,
               style: const TextStyle(color: Colors.black),
               onChanged: (value) {
                 //Do something with the user input.
