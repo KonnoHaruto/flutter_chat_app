@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/view/login_screen.dart';
 import 'package:flutter_chat_app/view/registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -51,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    // ログイン画面に遷移
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
                   minWidth: 200,
                   height: 42.0,
