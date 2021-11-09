@@ -13,23 +13,16 @@ class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;
 
-  void getCurrentUser() async {
+  void getCurrentUser() {
     try {
-    final user = _auth.currentUser;
-    if (user != null) {
-      loggedInUser = user;
-    } }
-    catch (e) {
-      // ignore: avoid_print
+      final User? user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      //ignore: avoid_print
       print(e);
     }
-    }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
   }
 
   @override
@@ -48,3 +41,4 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+}
