@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
   static String id = 'chat_screen';
@@ -13,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   // FirebaseUser ~> User
   late User loggedInUser;
+  late String messageText;
 
   @override
   void initState() {
@@ -58,7 +61,29 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(),
+            Container(
+              decoration: messageDecoration,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      onChanged: (value) {
+                        messageText = value;
+                      },
+                      decoration: textFieldDecoration,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // send functionaly.
+                    }, 
+                    child: const Text('送信', style: sendButtonTextStyle),
+                    ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
