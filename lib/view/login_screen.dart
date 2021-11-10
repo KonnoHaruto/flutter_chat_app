@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/view/chat_screen.dart';
 import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -148,10 +149,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       startSpiner();
                       try {
-                        UserCredential user = await _auth.signInWithEmailAndPassword(
+                        UserCredential user =
+                            await _auth.signInWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
+                        if (user != null) {
+                          Navigator.pushNamed(context, ChatScreen.id);
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           // ignore: avoid_print

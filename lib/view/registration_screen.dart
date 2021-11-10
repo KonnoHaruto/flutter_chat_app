@@ -151,6 +151,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           email: email,
                           password: password,
                         );
+                        if (user != null) {
+                          Navigator.pushNamed(context, ChatScreen.id);
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           // ignore: avoid_print
