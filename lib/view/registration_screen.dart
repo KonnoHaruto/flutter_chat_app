@@ -18,6 +18,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late String email;
   late String password;
 
+  void startSpiner() {
+    setState(() {
+      showSpiner = true;
+    });
+  }
+
+  void stopSpiner() {
+    setState(() {
+      showSpiner = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,28 +144,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   elevation: 5.0,
                   child: MaterialButton(
                     onPressed: () async {
-                      setState(() {
-                        showSpiner = true;
-                      });
+                      startSpiner();
                       try {
-                        final newUser =
+                        UserCredential user =
                             await _auth.createUserWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
-                        // ignore: unnecessary_null_comparison
-                        if (newUser != null) {
-                          Navigator.pushNamed(context, ChatScreen.id);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          // ignore: avoid_print
+                          print('The password provided is too weak');
+                          stopSpiner();
+                        } else if (e.code == 'email-already-in-use') {
+                          // ignore: avoid_print
+                          print('The account already exists for that email.');
+                          stopSpiner();
                         }
-                        setState(() {
-                          showSpiner = false;
-                        });
                       } catch (e) {
-                        //ignore: avoid_print
+                        // ignore: avoid_print
                         print(e);
-                        setState(() {
-                          showSpiner = false;
-                        });
+                        stopSpiner();
                       }
                     },
                     minWidth: 200.0,

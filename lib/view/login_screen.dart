@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       startSpiner();
                       try {
-                        final user = await _auth.signInWithEmailAndPassword(
+                        UserCredential user = await _auth.signInWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
