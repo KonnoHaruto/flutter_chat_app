@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24.0,
-          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,33 +46,32 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: 'メールアドレスを入力',
                 hintStyle: TextStyle(color: Colors.black),
-                contentPadding:
-                    EdgeInsets.symmetric(
-                      vertical: 10.0, 
-                      horizontal: 20.0,
-                      ),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 20.0,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.blueAccent, 
+                    color: Colors.blueAccent,
                     width: 1.0,
-                    ),
+                  ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.blueAccent, 
+                    color: Colors.blueAccent,
                     width: 2.0,
-                    ),
+                  ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
               ),
             ),
@@ -90,33 +89,32 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: 'パスワードを入力',
                 hintStyle: TextStyle(color: Colors.black),
-                contentPadding:
-                    EdgeInsets.symmetric(
-                      vertical: 10.0, 
-                      horizontal: 20.0,
-                      ),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 20.0,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.blueAccent, 
+                    color: Colors.blueAccent,
                     width: 1.0,
-                    ),
+                  ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.blueAccent, 
+                    color: Colors.blueAccent,
                     width: 2.0,
-                    ),
+                  ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(32.0),
-                    ),
+                  ),
                 ),
               ),
             ),
@@ -129,11 +127,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.blueAccent,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(30.0),
-                  ),
+                ),
                 elevation: 5.0,
                 child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, ChatScreen.id);
+                  onPressed: () async {
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+                      if (user != null) {
+                        Navigator.pushNamed(
+                          context, ChatScreen.id,
+                        );
+                      }
+                    } catch (e) {
+                      // ignore: avoid_print
+                      print(e);
+                    }
                   },
                   minWidth: 200.0,
                   height: 42.0,
