@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/view/chat_screen.dart';
@@ -144,10 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           password: password,
                         );
                         if (user != null) {
-                          Navigator.pushNamed(
-                            context,
-                            ChatScreen.id,
-                          );
+                          Navigator.pushNamed(context, ChatScreen.id);
                         }
                         setState(() {
                           showSpiner = false;
@@ -155,6 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       } catch (e) {
                         // ignore: avoid_print
                         print(e);
+                        setState(() {
+                          showSpiner = false;
+                        });
                       }
                     },
                     minWidth: 200.0,

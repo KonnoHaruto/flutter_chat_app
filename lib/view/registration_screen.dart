@@ -151,6 +151,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       } catch (e) {
                         //ignore: avoid_print
                         print(e);
+                        setState(() {
+                          showSpiner = false;
+                        });
                       }
                     },
                     minWidth: 200.0,
