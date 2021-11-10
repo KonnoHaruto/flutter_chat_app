@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/view/chat_screen.dart';
 import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +15,18 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showSpiner = false;
   late String email;
   late String password;
+
+  void stopSpiner() {
+    setState(() {
+      showSpiner = false;
+    });
+  }
+
+  void startSpiner() {
+    setState(() {
+      showSpiner = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,26 +146,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   elevation: 5.0,
                   child: MaterialButton(
                     onPressed: () async {
-                      setState(() {
-                        showSpiner = true;
-                      });
+                      startSpiner();
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
-                        if (user != null) {
-                          Navigator.pushNamed(context, ChatScreen.id);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          // ignore: avoid_print
+                          print('No user found for that email.');
+                          stopSpiner();
+                        } else if (e.code == 'wrong-password') {
+                          // ignore: avoid_print
+                          print('wrong password provide for that email');
+                          stopSpiner();
                         }
-                        setState(() {
-                          showSpiner = false;
-                        });
                       } catch (e) {
                         // ignore: avoid_print
                         print(e);
-                        setState(() {
-                          showSpiner = false;
-                        });
+                        stopSpiner();
                       }
                     },
                     minWidth: 200.0,
