@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/reference.dart';
+import '../reference.dart';
 import '../constants.dart';
+import 'welcome_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
@@ -45,7 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void getMessages() {
     // QuerySnapshotを取得
-    final message = chatRef.snapshots();    // ignore: avoid_print
+    final message = chatRef.snapshots(); // ignore: avoid_print
   }
 
   @override
@@ -59,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: const Icon(Icons.close),
             onPressed: () {
               _auth.signOut();
-              Navigator.pop(context);
+              Navigator.pushNamed(context, WelcomeScreen.id);
             },
           ),
         ],

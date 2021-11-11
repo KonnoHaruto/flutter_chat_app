@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/view/chat_screen.dart';
-import 'package:flutter_chat_app/view/login_screen.dart';
+import 'view/chat_screen.dart';
+import 'view/login_screen.dart';
 
 import 'view/registration_screen.dart';
 import 'view/welcome_screen.dart';
