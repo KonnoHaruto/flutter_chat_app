@@ -153,6 +153,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         );
                         if (user != null) {
                           Navigator.pushNamed(context, ChatScreen.id);
+                          stopSpiner();
                         }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
