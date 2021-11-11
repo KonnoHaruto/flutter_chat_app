@@ -156,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                         if (user != null) {
                           Navigator.pushNamed(context, ChatScreen.id);
+                          stopSpiner();
                         }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
@@ -165,6 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         } else if (e.code == 'wrong-password') {
                           // ignore: avoid_print
                           print('wrong password provide for that email');
+                          stopSpiner();
+                        } else {
                           stopSpiner();
                         }
                       } catch (e) {
