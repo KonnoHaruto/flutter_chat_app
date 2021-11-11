@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
@@ -12,7 +13,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  final textController = TextEditingController();
   late String email;
   late String password;
 
@@ -68,6 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: textController,
                       onChanged: (value) {
                         messageText = value;
                       },
@@ -76,7 +80,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // send functionality.
+                      _firestore.collection('message').add({
+                        'text': messageText,
+                        'sender': logedInUser!.email,
+                      });
+                      // ignore: avoid_print
+                      print('user send: $messageText UId: ${logedInUser!.email}');
+                      textController.clear();
                     },
                     child: const Text(
                       '送信',
