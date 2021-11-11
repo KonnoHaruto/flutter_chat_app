@@ -1,38 +1,39 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../constants.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
   static String id = 'chat_screen';
 
+  const ChatScreen({Key? key}) : super(key: key);
+
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  // FirebaseUser ~> User
-  late User loggedInUser;
+  late String email;
+  late String password;
+
+  late User? logedInUser;
   late String messageText;
 
   @override
   void initState() {
     super.initState();
+
     getCurrentUser();
   }
 
   void getCurrentUser() {
+    final User? user = _auth.currentUser;
     try {
-      final User? user = _auth.currentUser;
       if (user != null) {
-        loggedInUser = user;
-        // ignore: avoid_print
-        print(loggedInUser.email);
+        logedInUser = user;
       }
     } catch (e) {
-      //ignore: avoid_print
+      // ignore: avoid_print
       print(e);
     }
   }
@@ -45,16 +46,15 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: <Widget>[
           IconButton(
+            icon: const Icon(Icons.close),
             onPressed: () {
-              // logout functionality.
               _auth.signOut();
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.logout),
           ),
         ],
-        title: const Text('Chat_App'),
-        backgroundColor: Colors.greenAccent,
+        title: const Text('chat_app'),
+        backgroundColor: Colors.lightGreenAccent,
       ),
       body: SafeArea(
         child: Column(
@@ -64,8 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Container(
               decoration: messageDecoration,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     child: TextField(
@@ -77,10 +76,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // send functionaly.
-                    }, 
-                    child: const Text('送信', style: sendButtonTextStyle),
+                      // send functionality.
+                    },
+                    child: const Text(
+                      '送信',
+                      style: sendButtonTextStyle,
                     ),
+                  ),
                 ],
               ),
             ),
