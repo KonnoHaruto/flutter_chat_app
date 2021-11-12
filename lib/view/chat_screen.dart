@@ -65,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
         title: const Text('chat_app'),
-        backgroundColor: Colors.lightGreenAccent,
+        backgroundColor: Colors.greenAccent,
       ),
       body: SafeArea(
         child: Column(
