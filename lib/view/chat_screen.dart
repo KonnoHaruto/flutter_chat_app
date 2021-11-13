@@ -25,6 +25,9 @@ class _ChatScreenState extends State<ChatScreen> {
   late User? logedInUser;
   late String messageText;
 
+  late String createdAt;
+  late String updatedAt;
+
   @override
   void initState() {
     super.initState();
