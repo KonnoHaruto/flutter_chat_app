@@ -25,9 +25,6 @@ class _ChatScreenState extends State<ChatScreen> {
   late User? logedInUser;
   late String messageText;
 
-  late String createdAt;
-  late String updatedAt;
-
   @override
   void initState() {
     super.initState();
@@ -47,9 +44,12 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  // cloud firestoreからデータを持ってくる
   void getMessages() {
-    // QuerySnapshotを取得
-    final message = chatRef.snapshots(); // ignore: avoid_print
+    chatRef.get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs;
+      // .where(() => false)
+    });
   }
 
   @override
