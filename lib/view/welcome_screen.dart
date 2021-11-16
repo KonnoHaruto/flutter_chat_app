@@ -23,13 +23,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: <Widget>[
             Row(
               children: const <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Icon(
-                    Icons.message,
-                    color: Colors.black,
-                    size: 40,
-                  ),
+                Icon(
+                  Icons.message,
+                  color: Colors.black,
+                  size: 40,
                 ),
                 Text(
                   'Flutter Chat App!',
