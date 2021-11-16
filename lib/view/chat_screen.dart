@@ -43,14 +43,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void getMessages() async {
-    final messages = await chatRef.get();
-    for (var message in messages.docs) {
-      // ignore: avoid_print
-      print(message.data());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +85,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         'text': messageText,
                         'sender': logedInUser!.email,
                       });
-                      getMessages();
                     },
                     child: const Text(
                       '送信',
