@@ -79,6 +79,26 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  StreamBuilder<QuerySnapshot>(
+                    stream: chatRef.snapshots(),
+                    builder: (context, snapshot) {
+                      List<Text> messageWidgets = [];
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data!.docs;
+
+                        for (var message in messages) {
+                          final messageText = message.get('text');
+                          final messageSender = message.get('sender');
+                          final messageWidget =
+                              Text('$messageSender said $messageText');
+                          messageWidgets.add(messageWidget);
+                        }
+                      }
+                      return Column(
+                        children: messageWidgets,
+                      );
+                    },
+                  ),
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
