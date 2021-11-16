@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../reference.dart';
 import '../constants.dart';
-import 'welcome_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
@@ -43,6 +42,15 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void messageStream() async {
+    await for (var snapshot in chatRef.snapshots()) {
+      for (var message in snapshot.docs) {
+        // ignore: avoid_print
+        print(message.data());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: const Icon(Icons.close),
             onPressed: () {
               _auth.signOut();
-              Navigator.pushNamed(context, WelcomeScreen.id);
+              Navigator.pop(context);
             },
           ),
         ],
@@ -85,6 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         'text': messageText,
                         'sender': logedInUser!.email,
                       });
+                      messageStream();
                     },
                     child: const Text(
                       '送信',
