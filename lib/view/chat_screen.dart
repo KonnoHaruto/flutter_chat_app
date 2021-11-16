@@ -17,7 +17,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
-  final textController = TextEditingController();
 
   late String email;
   late String password;
@@ -44,12 +43,12 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // cloud firestoreからデータを持ってくる
-  void getMessages() {
-    chatRef.get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs;
-      // .where(() => false)
-    });
+  void getMessages() async {
+    final messages = await chatRef.get();
+    for (var message in messages.docs) {
+      // ignore: avoid_print
+      print(message.data());
+    }
   }
 
   @override
@@ -82,7 +81,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      controller: textController,
                       onChanged: (value) {
                         messageText = value;
                       },
@@ -95,7 +93,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         'text': messageText,
                         'sender': logedInUser!.email,
                       });
-                      textController.clear();
                       getMessages();
                     },
                     child: const Text(
