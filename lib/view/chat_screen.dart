@@ -1,8 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/message_stream.dart';
 import '../reference.dart';
 import '../constants.dart';
+
+late User? loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
@@ -14,13 +16,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _firestore = FirebaseFirestore.instance;
+  final textController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
-  late String email;
-  late String password;
-
-  late User? logedInUser;
   late String messageText;
 
   @override
@@ -34,20 +32,11 @@ class _ChatScreenState extends State<ChatScreen> {
     final User? user = _auth.currentUser;
     try {
       if (user != null) {
-        logedInUser = user;
+        loggedInUser = user;
       }
     } catch (e) {
       // ignore: avoid_print
       print(e);
-    }
-  }
-
-  void messageStream() async {
-    await for (var snapshot in chatRef.snapshots()) {
-      for (var message in snapshot.docs) {
-        // ignore: avoid_print
-        print(message.data());
-      }
     }
   }
 
@@ -67,53 +56,33 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
         title: const Text('chat_app'),
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.green,
       ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            const MessageStream(),
             Container(
               decoration: messageDecoration,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  StreamBuilder<QuerySnapshot>(
-                    stream: chatRef.snapshots(),
-                    builder: (context, snapshot) {
-                      List<Text> messageWidgets = [];
-                      if (snapshot.hasData) {
-                        final messages = snapshot.data!.docs;
-
-                        for (var message in messages) {
-                          final messageText = message.get('text');
-                          final messageSender = message.get('sender');
-                          final messageWidget =
-                              Text('$messageSender said $messageText');
-                          messageWidgets.add(messageWidget);
-                        }
-                      }
-                      return Column(
-                        children: messageWidgets,
-                      );
-                    },
-                  ),
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        messageText = value;
-                      },
+                      controller: textController,
                       decoration: textFieldDecoration,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       chatRef.add({
-                        'text': messageText,
-                        'sender': logedInUser!.email,
+                        'text': textController.text,
+                        'sender': loggedInUser!.email,
+                        'createdAt': DateTime.now(),
                       });
-                      messageStream();
+                      textController.clear();
                     },
                     child: const Text(
                       '送信',
