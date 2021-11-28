@@ -21,19 +21,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: const <Widget>[
-                Icon(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Icon(
                   Icons.message,
                   color: Colors.black,
-                  size: 40,
+                  size: 120,
                 ),
-                Text(
-                  'Flutter Chat App!',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w800,
+                Container(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: const Text(
+                    'Flutter Chat App!',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ],
@@ -52,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Navigator.pushNamed(context, LoginScreen.id);
                   },
                   minWidth: 200,
-                  height: 42.0,
+                  height: 60.0,
                   child: const Text(
                     'ログイン',
                     style: TextStyle(color: Colors.white),
@@ -72,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Navigator.pushNamed(context, RegistrationScreen.id);
                   },
                   minWidth: 200.0,
-                  height: 42.0,
+                  height: 60.0,
                   child: const Text(
                     '登録',
                     style: TextStyle(color: Colors.white),
