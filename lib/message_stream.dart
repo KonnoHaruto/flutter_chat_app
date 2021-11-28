@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/view/chat_screen.dart';
 
+import 'message_data.dart';
 import 'reference.dart';
 
 class MessageStream extends StatelessWidget {
@@ -11,18 +13,32 @@ class MessageStream extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: chatRef.orderBy('createdAt', descending: false).snapshots(),
       builder: (context, snapshot) {
-        List<Text> messageWidgets = [];
-        if (snapshot.hasData) {
-          final messages = snapshot.data!.docs;
-          for (var message in messages) {
-            final messageText = message.get('text');
-            final messageSender = message.get('sender');
-            final messageWidget = Text('$messageSender said $messageText');
-            messageWidgets.add(messageWidget);
-          }
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.green,
+            ),
+          );
         }
-        return Column(
-          children: messageWidgets,
+        final messages = snapshot.data!.docs.reversed;
+        List<MessageData> messageData = [];
+        for (var message in messages) {
+          final messageText = message.get('text');
+          final messageSender = message.get('sender');
+          final currentUser = loggedInUser!.email;
+
+          final messageData = MessageData(
+            sender: messageSender,
+            text: messageText,
+            isMe: currentUser == messageSender,
+          );
+        }
+        return Expanded(
+          child: ListView(
+            reverse: true,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            children: messageData,
+          ),
         );
       },
     );
