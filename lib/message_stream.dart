@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/view/chat_screen.dart';
 
-import 'message_data.dart';
+import 'message_datum.dart';
 import 'reference.dart';
 
 class MessageStream extends StatelessWidget {
@@ -21,17 +21,18 @@ class MessageStream extends StatelessWidget {
           );
         }
         final messages = snapshot.data!.docs.reversed;
-        List<MessageData> messageData = [];
+        List<MessageDatum> messageData = [];
         for (var message in messages) {
           final messageText = message.get('text');
           final messageSender = message.get('sender');
           final currentUser = loggedInUser!.email;
 
-          final messageData = MessageData(
+          final messageDatum = MessageDatum(
             sender: messageSender,
             text: messageText,
             isMe: currentUser == messageSender,
           );
+          messageData.add(messageDatum);
         }
         return Expanded(
           child: ListView(
