@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class MessageData extends StatelessWidget {
+class MessageDatum extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const MessageData({
+  const MessageDatum({
     Key? key,
     required this.sender,
     required this.text,
